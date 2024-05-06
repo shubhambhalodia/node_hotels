@@ -6,6 +6,7 @@ const bodyParser=require('body-parser');
 const Person = require('./models/person');
 const passport=require('passport');
 const LocalStrategy=require('passport-local').Strategy;
+require('dotenv').config();
 app.use(bodyParser.json());
 const logRequest=(req,res,next)=>{
     console.log(`[${new Date().toLocaleString()}] Request made to : ${req.originalUrl}`);
@@ -81,5 +82,15 @@ app.put('/person/:id',async(req,res)=>{
     catch(err){
         console.log('Error saving person',err);
         res.status(500).json({error:err})
+    }
+})
+app.get('/person',async (req,res)=>{
+    try{
+        const data=await Person.find();
+        res.status(200).json(data);
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({error: 'Internal Server Error'});
     }
 })
