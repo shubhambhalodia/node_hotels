@@ -12,7 +12,7 @@ const logRequest=(req,res,next)=>{
     console.log(`[${new Date().toLocaleString()}] Request made to : ${req.originalUrl}`);
     next();
 }
-const localAuthMiddleware=passport.authenticate('local',{session:false});
+// const localAuthMiddleware=passport.authenticate('local',{session:false});
 app.get('/',function(req,res){
     res.send('welcome my friend');
 })              
@@ -20,7 +20,7 @@ app.use(logRequest);
 app.listen(3000,()=>{
     console.log('listening on port 3000');
 })
-app.use(passport.initialize());
+// app.use(passport.initialize());
 passport.use(new LocalStrategy(async (USERNAME,password,done)=>{
     try{
         console.log("recievd credetials :",USERNAME,password);
